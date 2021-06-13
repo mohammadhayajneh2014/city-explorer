@@ -47,7 +47,7 @@ return(
         <p>{this.state.data.lon}</p>
         <p>{this.state.data.lat}</p>
         { this.state.displayErrMsg && this.state.messageForWrongInput}
-        {this.state.displayMap &&  <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.bc65df9798f7b8653e9f6d9a36f47165&center=${this.state.data.lat},${this.state.data.lon}&zoom=18&size=500x500&`} alt='map'/>}
+        {this.state.displayMap &&  <img src={`https://maps.locationiq.com/v3/staticmap?key=pk.bc65df9798f7b8653e9f6d9a36f47165&center=${this.state.data.lat},${this.state.data.lon}`} alt='map'/>}
 
 </div>
 );
