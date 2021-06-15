@@ -24,32 +24,29 @@ class App extends React.Component {
 
   gitingcity = async (event) => {
     event.preventDefault();
-    let LocationIQ = event.target.LocationIQ.value;
-    let LocationUrl = `https://eu1.locationiq.com/v1/search.php?key=pk.bc65df9798f7b8653e9f6d9a36f47165&q=${LocationIQ}&format=json`;
-
+   
    
     
     try {
-     
-      
+      let LocationIQ = event.target.LocationIQ.value;
+      let LocationUrl = `https://eu1.locationiq.com/v1/search.php?key=pk.bc65df9798f7b8653e9f6d9a36f47165&q=${LocationIQ}&format=json`;
+    
       let allAboutLocation = await axios.get(LocationUrl);
+      let urlWeather=`http://localhost:3050/getNames?cityLan=${allAboutLocation.data[0].lat}&cityLon=${allAboutLocation.data[0].lon}`;
+      let weatheropject= await axios.get(urlWeather);
       
       console.log(allAboutLocation.data);
       this.setState({
         data: allAboutLocation.data[0],
+        wheathr: weatheropject.data,
         displayMap: true
       })
-      let urlWeather=`http://localhost:3050/getNames?cityLan=${this.state.data[0].lat}&cityLon=${this.state.data[0].lon}`;
-      let weatheropject= await axios.get(urlWeather);
-      this.setState({
-        wheathr: weatheropject.data,
-      })
+     
       
     }
     catch {
       this.setState({
         messageForWrongInput: 'error this is a bad response',
-        
         displayErrMsg: true
       })
     }
