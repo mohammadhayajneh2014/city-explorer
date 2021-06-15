@@ -11,6 +11,7 @@ class Weather extends React.Component {
                 {this.props.goToWeather.map((item) => {
                     return (
                         <div>
+                            
                             <Card body>{item.description}</Card>
                             <Card body>{item.date}</Card>
                             {/* {<p>{item.description} </p>}
