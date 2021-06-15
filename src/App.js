@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Image from 'react-bootstrap/Image';
 import Form from 'react-bootstrap/Form';
+import Weather from './compnent/Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class App extends React.Component {
     this.state = {
       data: '',
       messageForWrongInput: '',
+      wheathr:{},
       displayErrMsg: false,
       displayMap: false
 
@@ -22,15 +24,25 @@ class App extends React.Component {
 
   gitingcity = async (event) => {
     event.preventDefault();
-    let LocationIQ = event.target.LocationIQ.value;
-    let LocationUrl = `https://eu1.locationiq.com/v1/search.php?key=pk.bc65df9798f7b8653e9f6d9a36f47165&q=${LocationIQ}&format=json`;
+   
+   
+    
     try {
+      let LocationIQ = event.target.LocationIQ.value;
+      let LocationUrl = `https://eu1.locationiq.com/v1/search.php?key=pk.bc65df9798f7b8653e9f6d9a36f47165&q=${LocationIQ}&format=json`;
+    
       let allAboutLocation = await axios.get(LocationUrl);
+      let urlWeather=`http://localhost:3050/getNames?cityLan=${allAboutLocation.data[0].lat}&cityLon=${allAboutLocation.data[0].lon}`;
+      let weatheropject= await axios.get(urlWeather);
+      
       console.log(allAboutLocation.data);
       this.setState({
         data: allAboutLocation.data[0],
+        wheathr: weatheropject.data,
         displayMap: true
       })
+     
+      
     }
     catch {
       this.setState({
@@ -68,7 +80,7 @@ class App extends React.Component {
         {this.state.displayErrMsg && this.state.messageForWrongInput}
         {this.state.displayMap && <Image src={`https://maps.locationiq.com/v3/staticmap?key=pk.bc65df9798f7b8653e9f6d9a36f47165&center=${this.state.data.lat},${this.state.data.lon}`} alt='map' />}
 
-
+        <Weather goToWeather={this.state.wheathr}/>
 
 
       </div>
