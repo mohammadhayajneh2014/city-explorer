@@ -11,11 +11,12 @@ class Movieday extends React.Component {
     render() {
         return (
             <div>
+                <CardColumns>
                 {this.props.movieDesc.map((item) => {
                     return (
                         <div >
 
-                            <CardColumns>
+                            
                             
 
                                 <Card style={{ width: '18rem' }}>
@@ -46,13 +47,14 @@ class Movieday extends React.Component {
                                     </Card.Footer>
 
                                 </Card>
-                            </CardColumns>
+                            
                         </div>
                     )
                 }
                 )}
-
+                     </CardColumns>
             </div>
+
         );
     }
 
